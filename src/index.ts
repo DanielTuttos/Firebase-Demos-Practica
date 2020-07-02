@@ -18,7 +18,7 @@ function curpRandom(limit = 10) {
 }
 
 const registrarUsuarios = () => {
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 2; i++) {
         const usuario = {
             curp: curpRandom(),
             date: Date.now(),
@@ -26,7 +26,7 @@ const registrarUsuarios = () => {
             name: faker.name.firstName(),
             rango: 'Directivo',
             escuela: {
-                id: '43YffzSHtJZP10eVWh3t'
+                id: '7BsJ8ikPUIN85dwMicLQ'
             }
         }
 
@@ -37,3 +37,28 @@ const registrarUsuarios = () => {
             .catch(e => console.error(e));
     }
 }
+//registrarUsuarios();
+
+const obtenerUsuarios = () => {
+    usuariosRef
+        .onSnapshot(retornaDocumentos);
+}
+
+// obtenerUsuarios();
+
+//obtiene todos los directivos en general de todas las escuelas
+usuariosRef
+    .where('rango', '==', 'Directivo').
+    onSnapshot(retornaDocumentos);
+
+// obtiene los usuarios de la primera escuela 43YffzSHtJZP10eVWh3t
+usuariosRef
+    .where('rango', '==', 'Directivo')
+    .where('escuela.id', '==', '43YffzSHtJZP10eVWh3t')
+    .onSnapshot(retornaDocumentos);
+
+//obtiene los usuarios de la segunda escuela
+usuariosRef
+    .where('rango', '==', 'Directivo')
+    .where('escuela.id', '==', '7BsJ8ikPUIN85dwMicLQ')
+    .onSnapshot(retornaDocumentos);
